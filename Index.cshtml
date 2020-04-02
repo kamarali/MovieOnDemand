@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="R2.Solution">
+
+
+<head>
+    <!--Siva: This is work around to force the application open in Edge settings instead of forcing to open in IE 7-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script>
+
+        var proxyRoute = "@System.Configuration.ConfigurationManager.AppSettings["proxy.route"]";
+
+        function urlProxyRoute(path) {
+
+            if (proxyRoute == '' || proxyRoute == null)
+            {
+                return path;
+            }
+
+            return proxyRoute + "/" + path;
+        }
+    </script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no" />
+
+    @*<link rel="icon" sizes="192x192" href="~/Content/brand/vEY-logo-LightBG-sm.png">
+        <link rel="apple-touch-icon" href="~/Content/brand/vEY-logo-LightBG-sm.png.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="~/Content/brand/vEY-logo-LightBG-sm.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="~/Content/brand/vEY-logo-LightBG-sm.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="~/Content/brand/vEY-logo-LightBG-sm.png">*@
+
+    @*<title >{{ ctrl.appName}}</title>*@
+
+    <title>@ViewBag.Title</title>
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
+    
+    @Styles.RenderFormat("<link href='" + @System.Configuration.ConfigurationManager.AppSettings["proxy.route"] + "{0}' rel='stylesheet'></link>", "~/Content/VendorCSS")
+
+    <link rel="stylesheet" id="app-level-css">
+    @Styles.RenderFormat("<link href='" + @System.Configuration.ConfigurationManager.AppSettings["proxy.route"] + "{0}' rel='stylesheet'></link>", "~/Content/AppCSS")
+
+    @Styles.RenderFormat("<link href='" + @System.Configuration.ConfigurationManager.AppSettings["proxy.route"] + "{0}' rel='icon' sizes='192x192'></link>", "~/Content/brand/vEY-logo-LightBG-sm.png")
+    @Styles.RenderFormat("<link href='" + @System.Configuration.ConfigurationManager.AppSettings["proxy.route"] + "{0}' rel='apple-touch-icon'></link>", "~/Content/brand/vEY-logo-LightBG-sm.png.png")
+    @Styles.RenderFormat("<link href='" + @System.Configuration.ConfigurationManager.AppSettings["proxy.route"] + "{0}' rel='apple-touch-icon'sizes='76x76'></link>", "~/Content/brand/vEY-logo-LightBG-sm.png")
+    @Styles.RenderFormat("<link href='" + @System.Configuration.ConfigurationManager.AppSettings["proxy.route"] + "{0}' rel='apple-touch-icon'sizes='120x120'></link>", "~/Content/brand/vEY-logo-LightBG-sm.png")
+    @Styles.RenderFormat("<link href='" + @System.Configuration.ConfigurationManager.AppSettings["proxy.route"] + "{0}' rel='apple-touch-icon'sizes='152x152'></link>", "~/Content/brand/vEY-logo-LightBG-sm.png")
+
+
+    <script>
+        //var loginType = "INTERNAL";
+        var networkType = "INTERNAL";
+        var loginType ='@(ViewBag.LoginType)';
+        var apiBaseUriInternal = '@System.Configuration.ConfigurationManager.AppSettings["INTERNAL.webapi.base.uri"]';
+        var apiBaseUriExternal = '@System.Configuration.ConfigurationManager.AppSettings["EXTERNAL.webapi.base.uri"]';
+
+        var internaltableauServer = '@System.Configuration.ConfigurationManager.AppSettings["INTERNAL.tableau.server"]';
+        var externaltableauServer = '@System.Configuration.ConfigurationManager.AppSettings["EXTERNAL.tableau.server"]';
+
+        var application = '@System.Configuration.ConfigurationManager.AppSettings["app.name"]';
+        var apiBaseUri = apiBaseUriInternal;
+        var tableauServer = internaltableauServer;
+
+        var actionTagsFile = '@System.Configuration.ConfigurationManager.AppSettings["ui.action.tags"]';
+
+        var currentLabel = '@System.Configuration.ConfigurationManager.AppSettings["brand.current.label"]';
+        var currentNavigation =  "@System.Configuration.ConfigurationManager.AppSettings["proxy.route"]" + "/" + "@System.Configuration.ConfigurationManager.AppSettings["brand.current.navigation"]";
+
+
+        var toIdle = @System.Configuration.ConfigurationManager.AppSettings["sec.timeout.idle"];
+        var toWarn = @System.Configuration.ConfigurationManager.AppSettings["sec.timeout.warn"];
+        var toKeepAlive = @System.Configuration.ConfigurationManager.AppSettings["sec.timeout.keepalive"];
+
+        var appClientId = '@System.Configuration.ConfigurationManager.AppSettings["client.id"]';
+
+        var brand_app_name='@(ViewBag.Title)';
+
+        var clientDirectAccessUrl = '@Session["ClientDirectAccessUrl"]';
+
+        var jsonKeyPredictionEnabled='@System.Configuration.ConfigurationManager.AppSettings["json.key.prediction.enabled"]';
+
+    </script>
+</head>
+<body data-ng-controller="rootCtrl as ctrl"
+      data-ng-class="{ 'sw-toggled': ctrl.layoutType === '1'}">
+    <data ui-view></data>    
+    @Scripts.RenderFormat("<script src='" + @System.Configuration.ConfigurationManager.AppSettings["proxy.route"] + "{0}'></script>", "~/bundles/AngularJS")
+
+
+    @Scripts.RenderFormat("<script src='" + @System.Configuration.ConfigurationManager.AppSettings["proxy.route"] + "{0}'></script>", "~/bundles/VendorJS")
+       
+
+    @if (System.Configuration.ConfigurationManager.AppSettings["json.key.prediction.enabled"] != null && Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["json.key.prediction.enabled"]) == true)
+    {
+        @Scripts.RenderFormat("<script src='" + @System.Configuration.ConfigurationManager.AppSettings["proxy.route"] + "{0}'></script>", "~/bundles/tensorflow")
+    }
+
+    @Scripts.RenderFormat("<script src='" + @System.Configuration.ConfigurationManager.AppSettings["proxy.route"] + "{0}'></script>", "~/bundles/SigmaJS")
+
+
+    <script id="app-level-js"></script>
+    @Scripts.RenderFormat("<script src='" + @System.Configuration.ConfigurationManager.AppSettings["proxy.route"] + "{0}'></script>", "~/bundles/AppJS")
+
+
+    @*<script>
+            (function (){
+
+                var _swal = window.swal;
+
+                window.swal = function(){
+
+                    var previousWindowKeyDown = window.onkeydown;
+
+                    _swal.apply(this, Array.prototype.slice.call(arguments, 0));
+
+                    window.onkeydown = previousWindowKeyDown;
+
+                };
+
+            })();
+        </script>*@
+</body>
+</html>

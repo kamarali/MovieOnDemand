@@ -1,0 +1,18 @@
+<header id="header" 
+        data-current-skin={{currentSkin}} 
+        data-ng-include="'SPA/common/views/header.html'" 
+        data-ng-controller="headerCtrl as hctrl" class="zindex-13">
+</header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include=ctrl.navigationHtmlPath data-ng-class="{ 'toggled': ctrl.sidebarToggle.left === true }" class="nav-zindex"></aside>
+
+    <!--<aside id="chat" data-ng-include="'SPA/common/views/chat.html'" data-ng-class="{ 'toggled': ctrl.sidebarToggle.right === true }"></aside>-->
+
+    <!-- Main view  -->
+    <div ui-view></div>
+
+</section>
+
+<footer id="footer" ng-if="!hideLayoutFooter" data-ng-include="'SPA/common/views/footer.html'"></footer>
+

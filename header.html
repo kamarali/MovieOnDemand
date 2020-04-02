@@ -1,0 +1,163 @@
+<ul class="header-inner clearfix">
+    <li id="menu-trigger" data-target="mainmenu" data-toggle-sidebar
+        data-model-left="ctrl.sidebarToggle.left"
+        data-ng-class="{ 'open': ctrl.sidebarToggle.left === true }">
+        <div class="line-wrap">
+            <div class="line top"></div>
+            <div class="line center"></div>
+            <div class="line bottom"></div>
+        </div>
+    </li>
+
+    <li class="logo">
+        <div>
+            <ng-include src="'Content/labels/'+currentLabel+'/Header-B.html'"></ng-include>
+        </div>
+    </li>
+    <li>
+        <div class="hidden-xs">
+            <label class="header-title" id="appName">
+                <!--{{appName}}-->
+                <a style="color:white" ng-click="ctrl.selectModule('home')">{{appName}}</a>
+                <!--
+         <span ng-if="ctrl.module.moduleName?true:false"> &gt; <a style="color:white" ng-click="ctrl.selectModule('module')">{{ctrl.module.moduleName}}</a></span>
+         -->
+            </label>
+            <ui-breadcrumbs is-dynamic-property="data.isDynamic" displayname-property="data.displayName" abstract-proxy-property="data.proxy" template-url="ui-breadcrumbs.html"></ui-breadcrumbs>
+        </div>
+    </li>
+    <li class="pull-right">
+        <ul class="top-menu">
+
+            <li class="hidden-xs">
+                <a href="" data-ng-click="ctrl.showProfile()"
+                   tooltip-placement="bottom" uib-tooltip="{{UserSession.firstName}} {{UserSession.lastName}}">
+                    <div class="profile-pic">
+                        <img ng-src="{{(UserSession.profilePicURI=='NA' || UserSession.profilePicURI=='') ? 'Content/img/icons/profile-pics/dummy.png':UserSession.profilePicURI}}">
+                    </div>
+                </a>
+            </li>
+
+            <li id="toggle-width">
+                <div class="toggle-switch">
+                    <input id="tw-switch" type="checkbox" hidden="hidden" data-change-layout="ctrl.layoutType">
+                    <label for="tw-switch" class="ts-helper"></label>
+                </div>
+            </li>
+
+            <li class="dropdown" uib-dropdown ng-if="hctrl.notificationsAvailable==true">
+                <a uib-dropdown-toggle href="">
+                    <i class="tm-icon zmdi zmdi-notifications"></i>
+                    <i ng-show="hctrl.notificationsCountUnread>0" class="tmn-counts">{{hctrl.notificationsCountUnread}}</i>
+                </a>
+                <!--#notifications .listview div.lv-item-->
+                <div class="dropdown-menu dropdown-menu-lg stop-propagate pull-right">
+                    <div class="" id="notifications">
+                        <div class="lv-header">
+                            Notification
+                            <ul class="actions">
+                                <li ng-if="hctrl.notificationsCountUnread">
+                                    <a href="" data-ng-click="hctrl.setAllNotificationAsRead()" tooltip-placement="bottom" uib-tooltip="Mark all as read">
+                                        <i class="zmdi zmdi-check-all"></i>
+                                    </a>
+                                </li>
+                                <li ng-if="hctrl.notificationsCount">
+                                    <a href="" data-ng-click="hctrl.deleteAllNotificationItems()" tooltip-placement="bottom" uib-tooltip="Delete all">
+                                        <i class="zmdi zmdi-delete"></i>
+                                    </a>
+                                </li>
+                                <li ng-if="hctrl.viewNotificationList">
+                                    <a href="" data-ng-click="hctrl.viewNotificationList()" tooltip-placement="bottom" uib-tooltip="View all">
+                                        <i class="zmdi zmdi-view-list"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="listview c-overflow hgt-280"><!-- style="height: 280px" -->
+                            <div class="lv-item media" ng-repeat="w in hctrl.notifications" ng-class="{'notifications-unread': w.status == 0}">
+                                <div class="pull-right">
+                                    <ul class="actions">
+                                        <li ng-if="w.status == 0">
+                                            <a href="" data-ng-click="hctrl.setNotificationAsRead(w)" tooltip-placement="left" uib-tooltip="Mark as read">
+                                                <i class="zmdi zmdi-email"></i>
+                                            </a>
+                                        </li>
+                                        <li ng-if="w.status == 1">
+                                            <a href="" data-ng-click="hctrl.setNotificationAsUnread(w)" tooltip-placement="left" uib-tooltip="Mark as unread">
+                                                <!--<i class="zmdi zmdi-replay zmdi-hc-rotate-270"></i>-->
+                                                <i class="zmdi zmdi-email-open"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="" data-ng-click="hctrl.deleteNotificationItem(w.id, w.title)" tooltip-placement="left" uib-tooltip="delete">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="pull-left">
+                                    <i class="zmdi c-{{currentSkin}}" ng-class="{'zmdi-notifications': w.status == 0, 'zmdi-notifications-none': w.status == 1}"></i>
+                                </div>
+                                <a ng-href="" ng-click="hctrl.goToNotificationUrl(w)" class="p-t-0 m-b-0">
+                                    <div class="media-body">
+                                        <div ng-if="w.status == 0">
+                                            <div class="lv-title">
+                                                <strong>{{ w.title }} | {{w.createdDateTime | date:'dd-MM-yyyy @ h:mma'}}</strong>
+                                            </div>
+                                            <strong><small class="lv-small">{{ w.description }}</small></strong>
+                                        </div>
+                                        <div ng-if="w.status == 1">
+                                            <div class="lv-title">
+                                                {{ w.title }}
+                                            </div>
+                                            <small class="lv-small">{{ w.description }}</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <a class="lv-footer lv-footer-{{ currentSkin == 'default' ? 'blue' : currentSkin }}" href="" ng-click="hctrl.loadMoreNotifications()">Load More</a>
+                    </div>
+
+                </div>
+            </li>
+
+            <li class="dropdown" uib-dropdown>
+                <a uib-dropdown-toggle href="">
+                    <i class="tm-icon zmdi zmdi-more-vert"></i>
+                </a>
+                <ul class="dropdown-menu dm-icon pull-right">
+                    <li>
+                        <a href="" data-ng-click="ctrl.doLogout()"><i class="zmdi zmdi-time-restore"></i> Logout</a>
+                    </li>
+                    <li>
+                        <a href="" data-ng-click="ctrl.showProfile()"><i class="zmdi zmdi-account"></i> Profile</a>
+                    </li>
+
+                    <li class="hidden-xs">
+                        <a data-ng-click="hctrl.fullScreen()" href=""><i class="zmdi zmdi-fullscreen"></i> Toggle Fullscreen</a>
+                    </li>
+
+                    <li class="divider hidden-xs"></li>
+
+                    <li class="skin-switch hidden-xs">
+                        <span ng-repeat="w in ctrl.skinList | limitTo : 6" class="ss-skin bgm-{{ w }}" data-ng-click="ctrl.skinSwitch(w)"></span>
+                    </li>
+
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<!-- Top Search Content -->
+<div id="top-search-wrap">
+    <div class="tsw-inner">
+        <i id="top-search-close" class="zmdi zmdi-arrow-left" data-ng-click="hctrl.closeSearch()"></i>
+        <input type="text">
+    </div>
+</div>

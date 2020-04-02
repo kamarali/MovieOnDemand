@@ -1,0 +1,208 @@
+﻿ <!-- Register -->
+<div class="lc-block w-600 toggled" id="l-register" ng-class="{ 'toggled': lctrl.showRegister === 1 }" ng-if="lctrl.showRegister === 1">
+    <div>
+        <div ng-include="'Content/labels/'+currentLabel+'/Header-A.html'" />
+    </div>
+
+    <div class="m-b-20">
+        <h4 class="text-left p-l-15">
+            {{lctrl.registerSuccess ? 'Registration' : 'User Registration' }}
+        </h4>
+    </div>
+
+    <div ng-if="lctrl.redirectPending === false">
+
+        <div ng-if="(authAuthMode=='AD' && lctrl.showExternalRegister == 0) || (authAuthMode=='SAML_AZURE' && lctrl.showExternalRegister == 0)">
+
+            <div ng-if="!lctrl.registerSuccess">
+                <div class="border-b-dash m-b-10">
+                    This system is configured for {{authAuthMode == 'AD' ? 'Enterprise Directory' : 'Azure Single Sign-on'}} Authentication. Please validate your {{authAuthMode == 'AD' ? 'enterprise' : 'Azure' }} login for registration.
+                </div>
+
+                <!-- USER NAME-->
+                <div class="input-group"
+                     ng-class="{ 'm-b-15' : !(formLogin.userName.$invalid && !formLogin.userName.$pristine) }">
+                    <span class="input-group-addon"><i class="zmdi zmdi-account-circle"></i></span>
+                    <div class="fg-line fg-line-{{currentSkin}}">
+                        <input name="userName" class="form-control"
+                               placeholder="Enterprise Login (UserId)"
+                               ng-model="lctrl.registerData.userName"
+                               required autofocus
+                               ng-readonly="lctrl.userValidated">
+                    </div>
+                    <small ng-show="formLogin.userName.$invalid && !formLogin.userName.$pristine" class="help-block">Enter valid email</small>
+                </div>
+
+                <!-- Show This Section Initially for User Validation only-->
+                <div ng-if="!lctrl.userValidated">
+                    <!--PASSWORD-->
+                    <div class="input-group" ng-class="{ 'm-b-15' : !(formRegister.password.$invalid && !formRegister.password.$pristine) }">
+                        <span class="input-group-addon"><i class="zmdi zmdi-eye-off"></i></span>
+                        <div class="fg-line fg-line-{{currentSkin}}">
+                            <input name="password" type="password" class="form-control" autocomplete="off"
+                                   placeholder="Password"
+                                   ng-model="lctrl.registerData.password"
+                                   required>
+                        </div>
+                    </div>
+
+                    <!--Initial USER VALIDATION BUTTON-->
+                    <div>
+                        <button class="btn bgm-{{ currentSkin == 'default' ? 'blue' : currentSkin }} btn-icon-text w-100"
+                                type="button"
+                                ng-click="lctrl.doValidateADUser();">
+                            <i class="zmdi zmdi-arrow-forward"></i> Validate User Login
+                        </button>
+                    </div>
+                </div>
+
+                <div ng-if="lctrl.userValidated">
+                    <div class="p-b-5 pull-right">
+                        <label class="label label-primary f-13">&nbsp;User Validated&nbsp;</label>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div ng-include="urlProxyRoute('SPA/common/views/registrationFields.html')"></div>
+
+                </div>
+
+                <div class="clearfix"></div>
+
+            </div>
+
+            <!--Show after successful registration-->
+            <div ng-if="lctrl.registerSuccess" class="p-15">
+
+                <p class="text-justify">
+                    Your Registration is complete. You will receive an email with link to email verification and access
+                    to your account, shortly.
+                </p>
+                <div ng-show="needTFA == 'true'">
+                    <p>
+                        This application uses Two Factor Authentication (TFA) for enhanced security.
+                        <br />
+                        To setup TFA, please download <b>Google Authenticator</b> on your mobile device&nbsp;
+                        and scan the QR code below.
+                    </p>
+                    <div ng-show="qrCode==''">Generating Google Authenticar QR Code...</div>
+                    <div ng-show="qrCode!=''">
+                        <p>Authenticator Code: <strong>{{qrCode}}</strong></p>
+                        <div class="form-group">
+                            <img class="img-responsive center-block" ng-src="{{qrCodeSrc}}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div ng-if="authAuthMode=='REPO'">
+            <div ng-include="urlProxyRoute('SPA/common/views/registrationFields.html')" />
+
+            <!--Show after successful registration-->
+            <div ng-if="lctrl.registerSuccess" class="p-15">
+
+                <p class="text-justify">
+                    Your Registration is complete. You will receive an email with link to email verification and access
+                    to your account, shortly.
+                </p>
+                <div ng-show="needTFA == 'true'">
+                    <p>
+                        This application uses Two Factor Authentication (TFA) for enhanced security.
+                        <br />
+                        To setup TFA, please download <b>Google Authenticator</b> on your mobile device&nbsp;
+                        and scan the QR code below.
+                    </p>
+                    <div ng-show="qrCode==''">Generating Google Authenticar QR Code...</div>
+                    <div ng-show="qrCode!=''">
+                        <p>Authenticator Code: <strong>{{qrCode}}</strong></p>
+                        <div class="form-group">
+                            <img class="img-responsive center-block" ng-src="{{qrCodeSrc}}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Show only when registration form is visible-->
+            <ul ng-if="authAuthMode !='SAML_AZURE'" class="login-navigation" ng-hide="lctrl.registerSuccess">
+                <li data-block="#l-login" class="bgm-green" ng-click="lctrl.showRegister = 0; lctrl.showLogin = 1">Login</li>
+                <li data-block="#l-forget-password" class="bgm-orange" ng-click="lctrl.showRegister = 0; lctrl.showForgot = 1">Forgot Password?</li>
+            </ul>
+            <ul ng-if="authAuthMode !='SAML_AZURE'" class="login-navigation" ng-show="lctrl.registerSuccess">
+                <li data-block="#l-login" class="bgm-green" ng-click="lctrl.showRegister = 0; lctrl.showLogin = 1">Login</li>
+            </ul>
+        </div>
+
+        <div ng-if="lctrl.showExternalRegister == 1">
+
+            <div ng-if="lctrl.userStatus==''">
+
+                <small ng-if="lctrl.userStatus==''" class="help-block text-left c-red p-l-15">All fields are mandatory</small>
+                <div ng-include="urlProxyRoute('SPA/common/views/registrationFields.html')">
+                </div>
+                <small ng-if="lctrl.userStatus==''" class="help-block f-12 c-info">In case of issues with registration, please contact <a href="mailto:{{lctrl.supportemail}}" target="_top">{{lctrl.supportemail}}</a> </small>
+            </div>
+
+            <!--Show after successful registration ng-click="lctrl.registerUser()"-->
+            <div ng-if="lctrl.userStatus=='REGISTERED'" class="p-15">
+
+                <p class="text-justify">
+                    Your Registration is complete. Once approved you will receive an email with link to access
+                    your account.
+                </p>
+                <div ng-show="needTFA == 'true'">
+                    <p>
+                        This application uses Two Factor Authentication (TFA) for enhanced security.
+                        <br />
+                        To setup TFA, please download <b>Google Authenticator</b> on your mobile device&nbsp;
+                        and scan the QR code below.
+                    </p>
+                    <div ng-show="qrCode==''">Generating Google Authenticar QR Code...</div>
+                    <div ng-show="qrCode!=''">
+                        <p>Authenticator Code: <strong>{{qrCode}}</strong></p>
+                        <div class="form-group">
+                            <img class="img-responsive center-block" ng-src="{{qrCodeSrc}}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Show if user exists and not approved-->
+            <div ng-if="lctrl.userStatus=='NOTAPPROVED'" class="p-15">
+
+                <p class="text-justify">
+                    User already registered and pending approval. Once approved you will receive an email with link to access your account.
+                </p>
+            </div>
+
+            <!--Show if user exists and approved-->
+            <div ng-if="lctrl.userStatus=='APPROVED'" class="p-15">
+
+                <p class="text-justify">
+                    User already registered and access is approved. Click <a href="#" ng-click="lctrl.ShowExternalLogin()" target="_top">here</a> to access the application.
+                </p>
+            </div>
+
+            <!--Show if user exists and revoked-->
+            <div ng-if="lctrl.userStatus=='REVOKED'" class="p-15">
+
+                <p class="text-justify">
+                    User already registered and access is revoked. Please contact <a href="mailto:{{lctrl.supportemail}}" target="_top">{{lctrl.supportemail}}</a>.
+                </p>
+            </div>
+
+            <ul class="login-navigation" ng-show="lctrl.userStatus!=''">
+                <li data-block="#l-login" class="bgm-green" ng-click="lctrl.init(0)">Login</li>
+            </ul>
+
+        </div>
+    </div>
+
+
+    <div ng-if="lctrl.redirectPending === true">
+        <div ng-include="urlProxyRoute('SPA/common/views/registerPending.html')" />
+    </div>
+
+    <div ng-include="'Content/brand/Footer-A.html'"></div>
+
+</div>

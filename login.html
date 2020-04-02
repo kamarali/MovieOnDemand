@@ -1,0 +1,133 @@
+﻿<div class="login-content" ng-controller="loginCtrl as lctrl">
+
+
+
+    <!-- Login -->
+    <div class="lc-block" id="l-login" ng-class="{ 'toggled': lctrl.showLogin === 1 }" >
+
+        <div>
+            <ng-include src="'Content/labels/'+currentLabel+'/Header-A.html'"></ng-include>
+        </div>
+
+        <div ng-if="lctrl.showExternalLanding == 0">
+
+            <div class="m-b-20">
+                <h4 class="text-left p-l-15">Login</h4>
+            </div>
+
+            <form name="formLogin" ng-submit="lctrl.doLogin()" autocomplete="off" novalidate>
+
+                <div class="p-r-10">
+
+                    <!--USER NAME-->
+                    <div ng-if="authAuthMode == 'REPO'"
+                         class="input-group"
+                         ng-class="{ 'm-b-15' : !(formLogin.userName.$invalid && !formLogin.userName.$pristine) }">
+                        <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
+                        <div class="fg-line fg-line-{{currentSkin}}">
+                            <input name="userName" type="email" class="form-control"
+                                   ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+                                   placeholder="User (email)"
+                                   ng-model="lctrl.loginData.userName"
+                                   required autofocus>
+                        </div>
+                        <small ng-show="formLogin.userName.$invalid && !formLogin.userName.$pristine" class="help-block">Enter valid email</small>
+                    </div>
+
+                    <div ng-if="authAuthMode == 'AD'"
+                         class="input-group"
+                         ng-class="{ 'm-b-15' : !(formLogin.userName.$invalid && !formLogin.userName.$pristine) }">
+                        <span class="input-group-addon"><i class="zmdi zmdi-account-circle"></i></span>
+                        <div class="fg-line fg-line-{{currentSkin}}">
+                            <input name="userName" class="form-control"
+                                   placeholder="Enterprise Login (UserId)"
+                                   ng-model="lctrl.loginData.userName"
+                                   required autofocus>
+                        </div>
+                        <small ng-show="formLogin.userName.$invalid && !formLogin.userName.$pristine" class="help-block">Enter valid email</small>
+                    </div>
+
+
+
+                    <!--PASSWORD-->
+                    <div class="input-group" ng-class="{ 'm-b-15' : !(formLogin.password.$invalid && !formLogin.password.$pristine) }">
+                        <span class="input-group-addon"><i class="zmdi zmdi-eye-off"></i></span>
+                        <div class="fg-line fg-line-{{currentSkin}}">
+                            <input name="password" type="password" class="form-control" autocomplete="off"
+                                   ng-minlength="8"
+                                   ng-maxlength="20"
+                                   placeholder="Password"
+                                   ng-model="lctrl.loginData.password"
+                                   required>
+                        </div>
+                        <small ng-show="formLogin.password.$invalid && !formLogin.password.$pristine" class="help-block">Enter valid password (8 to 20 chars)</small>
+                    </div>
+
+                    <!--TFA CODE-->
+                    <div ng-if="authTFAEnabled"
+                         class="input-group"
+                         ng-class="{ 'm-b-15' : !(formLogin.TFA.$invalid && !formLogin.TFA.$pristine) }">
+                        <span class="input-group-addon"><i class="zmdi zmdi-key"></i></span>
+                        <div class="fg-line fg-line-{{currentSkin}}">
+                            <input name="TFA" type="text" class="form-control"
+                                   ng-pattern="/^[0-9]{6}$/"
+                                   placeholder="TFA: Google Authenticator Code"
+                                   ng-model="lctrl.loginData.TFA"
+                                   required>
+                        </div>
+                        <small ng-show="formLogin.TFA.$invalid && !formLogin.TFA.$pristine" class="help-block">Enter valid code (6 digits)</small>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+
+                <button class="btn bgm-{{ currentSkin == 'default' ? 'blue' : currentSkin }} btn-icon-text w-100"
+                        type="submit"
+                        ng-disabled="formLogin.$invalid">
+                    <i class="zmdi zmdi-arrow-forward"></i> Login
+                </button>
+            </form>
+
+            <ul class="login-navigation">
+                <li data-block="#l-register" class="bgm-red" ng-click="lctrl.showLogin = 0; lctrl.showRegister = 1">Register</li>
+                <li data-block="#l-forget-password" class="bgm-orange" ng-click="lctrl.showLogin = 0; lctrl.showForgot = 1">Forgot Password?</li>
+            </ul>
+
+        </div>
+
+        <div ng-if="lctrl.showExternalLanding == 1">
+            <div>
+                <p class="main-menu">
+                    Already Registered?<br /><br />
+                    <button class="btn bgm-lightblue btn-icon-text w-30"
+                            type="submit" ng-click="lctrl.showExternalLogin = 1; lctrl.showExternalLoginForm()" >
+                        <i class="fa fa-unlock"></i> Login
+                    </button>
+                </p>
+                <p class="main-menu">
+                    New User?<br /><br />
+                    <button data-block="#l-register" class="btn bgm-lightblue btn-icon-text w-30"
+                            type="submit" ng-click="lctrl.showExternalLanding = 0; lctrl.showLogin = 0; lctrl.showRegister = 1; lctrl.showExternalRegister = 1; lctrl.showExternalLogin = 1;">
+                        <i class="fa fa-user-plus"></i> Register
+                    </button>
+                </p>
+            </div>
+            <br />
+            <small class="help-block f-12 text-left c-info">{{lctrl.supportEmailText}} <a href="mailto:{{lctrl.supportemail}}" target="_top">{{lctrl.supportemail}}</a> </small>
+        </div>
+
+        <div ng-include="'Content/brand/Footer-A.html'"></div>
+
+    </div>
+
+    
+        <!-- Register -->
+        <ng-include src="'SPA/common/views/register.html'"></ng-include>
+
+        <!-- Forgot Password -->
+        <ng-include src="'SPA/common/views/forgotPassword.html'"></ng-include>
+
+
+    
+
+</div>

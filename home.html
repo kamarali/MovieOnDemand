@@ -1,0 +1,92 @@
+<section id="content">
+    <div class="container-fluid" ng-controller="moduleIndexCtrl as ctrl">
+        <div class="card">
+            <!--SIDE WINDOWS-->
+            <div>
+                <aside class="rightview-w2 p-t-10 p-b-10"
+                       data-ng-include="'SPA/area/container/module/module-edit.html'"
+                       data-ng-class="[ctrl.viewPanes.editView ? 'toggled' : '']"></aside>
+
+
+                <div class="row p-b-0">
+                    <div class="col-sm-5 p-l-25">
+                        <div class="lv-header-home clearfix bgm-white">
+                            <h2 class="lvh-label hidden-xs f-17 f-400 c-black">Modules</h2>
+                            <div style="padding-left:7px"><small>Define/Manage modules</small></div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 pull-right ng-isolate-scope m-t-20" data-actiontag="MODULE-CREATE-ITEM" auth-Role>
+                        <button class="btn btn-link btn-link-{{ currentSkin == 'default' ? 'blue' : currentSkin }} btn-icon-text waves-effect pull-right" ng-click="ctrl.addItem()"
+                                type="button">
+                            <i class="zmdi zmdi-plus"></i> CREATE NEW MODULE
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <div class="lv-body">
+                        <div class="R2-card-550">
+                            <div class="row p-t-30 p-l-5">
+                                <div class="col-sm-12">
+
+                                    <div>
+                                        <div class="nomodule"
+                                             ng-if="ctrl.moduleCategory.length==0">
+                                            <p><b>No Modules Available.</b></p>
+                                        </div>
+                                        <div data-actiontag="MODULE-VIEW-ALL" auth-Role ng-repeat="category in  ctrl.moduleCategory">
+
+                                            <div class="col-sm-12 p-l-25 p-r-25">
+                                                <div class="module-main-tag">{{category.categoryName}}</div>
+                                                <div class="module-line module-line-modifications"></div>
+                                            </div>
+
+                                            <div class="p-l-25 p-r-25 tag-services" ng-repeat="module in   category.modules">
+
+                                                <div class="m-l-5 m-r-10 m-b-10">
+                                                    <div class="row">
+
+                                                        <div class="col-sm-12 module-square" style="margin-right: -25px !important;">
+
+                                                            <div>
+                                                                <!--<div class="delete-module" data-name="delete" uib-tooltip="delete">
+                                                                        <a href="" ng-click="ctrl.deleteModule(module.id)"><i class="zmdi zmdi-delete"></i> </a>
+                                                                    </div>-->
+                                                                <div class="edit-module" data-name="edit" uib-tooltip="edit" data-actiontag="MODULE-EDIT-ITEM" auth-Role>
+                                                                    <a href="" ng-click="ctrl.editModule(module.id)"><i class="zmdi zmdi-edit"></i> </a>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <a href="javascript:void(0)" ng-click="ctrl.selectModule(module.id,module.name)">
+                                                                <div class="lv-item media ng-scope active" role="button" tabindex="0" style="">
+                                                                    <div class="lv-avatar pull-left"
+                                                                         ng-class="module.active == true? 'bgm-'+ (currentSkin == 'default' ? 'blue' : currentSkin) : 'bgm-gray'">
+                                                                        {{module.moduleFirstLetter}}
+                                                                    </div>
+                                                                    <div class="media-body">
+                                                                        <div style="color: #000;" class="lv-title ng-binding">{{module.name}}</div>
+                                                                        <div style="color: #A9A9A9;" class="lv-small ng-binding">{{module.description}} </div>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

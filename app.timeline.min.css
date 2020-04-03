@@ -1,0 +1,277 @@
+﻿/*#region For Relativity Integration: <START: CSS added for timeline widget actions> */
+.dp-title, .tr-dpday th {
+    text-transform: uppercase
+}
+
+.btn-dpday {
+    border-radius: 50%;
+    width: 22px !important;
+    height: 22px
+}
+
+.btn-dpbody {
+    font-size: 12px;
+    padding: 3px;
+}
+
+.tr-dpnav .btn-dp {
+    padding: 5px 0
+}
+
+.dp-title {
+    font-weight: 400;
+    font-size: 12px
+}
+
+.arrow-timeline {
+    width: 20px !important;
+    height: 20px !important;
+    padding-top: 0px !important;
+}
+
+.btn-dp .zmdi {
+    font-size: 18px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    line-height: 25px
+}
+
+.tr-dpday th {
+    padding: 9px 3px;
+    color: #fff
+}
+
+.dp-table tbody > tr:last-child > td {
+    padding-bottom: 5px
+}
+
+
+/** timeline box structure **/
+.timeline {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+    .timeline .timeline-leaf:first-child::before {
+        margin-top: -15px;
+    }
+
+    .timeline .timeline-leaf::before {
+        top: 0;
+        bottom: 0;
+        position: absolute;
+        content: " ";
+        width: 1px;
+        background-color: #eee;
+        left: 50%;
+        margin-left: -1px;
+    }
+
+
+
+    .timeline:last-of-type .timeline-leaf:nth-last-child(1)::before {
+        height: calc(100% + 10px);
+    }
+
+    .timeline .timeline-leaf:nth-last-child(1)::before {
+        height: 50%;
+        top: 0;
+    }
+
+.timeline-date {
+    width: 200px;
+    margin: 0 auto;
+    padding: 3px 0;
+    text-align: center;
+}
+
+.timeline .timeline-leaf {
+    position: relative;
+}
+
+    .timeline .timeline-leaf:after {
+        content: "";
+        display: table;
+    }
+
+    .timeline .timeline-leaf:after {
+        clear: both;
+    }
+
+
+    /** timeline panels **/
+    .timeline .timeline-leaf .timeline-panel {
+        width: 48%;
+        float: left;
+        position: relative;
+    }
+
+    .timeline .timeline-leaf.timeline-inverted .timeline-panel {
+        float: right;
+    }
+
+
+    /** timeline circle icons **/
+    .timeline .timeline-leaf .timeline-circle {
+        position: absolute;
+        left: 50%;
+        top: 9px;
+        right: -26px;
+        width: 13px;
+        height: 13px;
+        border: 1px solid #C1C1C1;
+        border-radius: 50%;
+        margin: -2px 0 0 -7px;
+        background: #fff;
+    }
+
+@media (min-width: 768px) {
+    .timeline {
+        padding: 10px;
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .timeline {
+        margin-top: 30px;
+    }
+}
+
+.fillwidth {
+    width: 100%;
+    width: -moz-available; /* WebKit-based browsers will ignore this. */
+    width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+    width: fill-available;
+}
+
+.ng-hide {
+    height: 0;
+}
+
+.animationParentDiv {
+    background: #fff;
+    box-shadow: 0 0 10px rgba(51, 51, 51, 0.38);
+    -webkit-transition: all;
+    -o-transition: all;
+    transition: all;
+    -webkit-transition-duration: 300ms;
+    transition-duration: 300ms;
+    z-index: 10;
+}
+.themeOverlayExplicitWidth {
+   
+    width: calc(100% - 27px -248px) !important;
+}
+
+
+
+.themeOverlay {
+    position: fixed;
+    bottom: 0;
+    border: 1px solid #cccccc;
+    background-color: #eee !important;
+    width: calc(100% - 27px);
+    z-index: 2;
+    max-height: 315px !important;
+    height: auto;
+    overflow-y: scroll;
+    margin-bottom: 0;
+}
+
+.themeOverlayExplicitWidth {
+    width: calc(100% - 280px) !important;
+}
+
+.themeOverlayFullHeight {
+    min-height: 315px !important;
+}
+
+.timeleaf-icon {
+    width: 50px !important;
+}
+.w-55-p {
+    width: 55px !important;
+}
+.w-35-p {
+    width: 35px !important;
+}
+.timeleaf-discription {
+    width: 100%;
+}
+.theme-elem-icon {
+    width:40px !important;
+}
+.w-b-all {
+    word-break: break-all;
+}
+
+.chosen-container .chosen-drop .chosen-results .active-result {
+    line-height: 14px;
+}
+
+.chosen-container .chosen-drop .chosen-results .active-result.result-selected
+, .chosen-container .chosen-results li.result-selected {
+    padding-right: 30px;
+}
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+.themeElementsDragDrop div[dnd-list] {
+    min-height: 42px;
+    padding-left: 0px;
+}
+
+    /**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+.dndDraggingSource {
+    display: none;
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+/**
+* An element with .dndPlaceholder class will be
+* added to the dnd-list while the user is dragging
+* over it.
+*/
+.dndPlaceholder {
+    background-color: #ddd;
+    display: block;
+    min-height: 42px;
+}
+
+    /**
+* Show selected elements in green
+*/
+.themeElementsDragDrop div[dnd-list] div.selected {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+/*#endregion For Relativity Integration: <END> */
+
+/* #region For Event Details
+* Avoid showing event details in popover */
+.popover.fade.top.in {
+    display: none !important;
+}
+.popover-content {
+    display: none !important;
+}
+/*#endregion For Event Details: <END> */
+
+
+/*#region For Relativity Integration: <START: CSS added for Theme File element details table> */
+/*Theme Element Files Table Styles*/
+.theme-element-files-filename, .theme-element-files-filecomments {
+    word-break: break-all;
+    white-space: normal;
+}
+/*#endregion For Relativity Integration: <END> */

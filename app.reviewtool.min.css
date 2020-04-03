@@ -1,0 +1,207 @@
+﻿
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.start-container {
+    flex: 1 1 auto;
+    width: 70%;
+    position: relative
+}
+.document-list-containers { 
+    min-height: 380px;
+}
+.start-container:after {
+    border-right: solid 2px rgba(0, 0, 0, 0.15);
+    position: absolute;
+    content: '';
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.end-container {
+    width: 30%;
+}
+
+.document-viewer-container {
+    width: 76% !important;
+}
+
+.coding-panel-container {
+    width: 30% !important;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+.main-container {
+    display: flex;
+    width: 100%;
+    height: 75%;
+    max-height: 75%;
+    border: 1px solid red;
+}
+
+.pre-container {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: white;
+    white-space: pre-wrap;
+    overflow-x: hidden;
+}
+
+.fieldColumn .fg-line .chosen-container .chosen-single {
+    max-width: 335px !important;
+}
+
+.fieldColumn .fg-line .chosen-container {
+    max-width: 335px !important;
+}
+.border-r {
+    border-right: 1px solid #eee;
+}
+.sliderLabel {
+    height: 30px;
+    font-size: 11px;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+.table > thead > tr > th:first-child,
+.table > tbody > tr > th:first-child,
+.table > tfoot > tr > th:first-child,
+.table > thead > tr > td:first-child,
+.table > tbody > tr > td:first-child,
+.table > tfoot > tr > td:first-child {
+    padding-left: 25px !important;
+}
+
+
+.tblDocList > thead > tr > th:first-child,
+.tblDocList > tbody > tr > th:first-child,
+.tblDocList > tfoot > tr > th:first-child,
+.tblDocList > thead > tr > td:first-child,
+.tblDocList > tbody > tr > td:first-child,
+.tblDocList > tfoot > tr > td:first-child {
+    width: 85px !important;
+}
+
+.tableDocumentList > thead > tr > th:first-child,
+.tableDocumentList > tbody > tr > th:first-child,
+.tableDocumentList > tfoot > tr > th:first-child,
+.tableDocumentList > thead > tr > td:first-child,
+.tableDocumentList > tbody > tr > td:first-child,
+.tableDocumentList > tfoot > tr > td:first-child {
+    padding-left: 25px !important;
+}
+
+.savedSearchIcons {
+    padding-left: 5px !important;
+    margin-top: -10px !important;
+    padding-right: 5px !important;
+}
+
+.chosen-container .chosen-results {
+    overflow-y: auto;
+    max-height: 140px !important;
+    line-height: 10px;
+}
+
+.inputGroup {
+    color: #AEAEAE;
+    font-weight: normal;
+}
+
+.table > thead > tr > th {
+    padding-top: 0px !important;
+    vertical-align: top !important;
+
+}
+
+.tableDocumentList > thead > tr > th {
+    padding-top: 10px !important;
+}
+
+.reviewtoolDataMgmt {
+    max-height: 30px !important;
+    padding: 0px !important;
+    margin-top: 0px !important;
+}
+.reviewtoollinkDisable {
+    cursor: not-allowed;
+    pointer-events: none;
+    color: grey;
+}
+
+.ng-table-pagination > li:first-child:before, .ng-table-pagination > li:last-child:before {
+    z-index: 6!important 
+}
+
+.reviewtoolErrorReportGray {
+    margin: 0px 0px 5px 5px;
+    background-color: #B0BEC5 !important;
+}
+
+.reviewtoolErrorReportGreen {
+    margin: 0px 0px 5px 5px;
+    background-color: #4caf50 !important;
+}
+
+.reviewtoolErrorReportRed {
+    margin: 0px 0px 5px 5px;
+    background-color: #B71C1C !important;
+}
+.reviewtoolErrorReportIconMargin {
+    margin: 0px 0px 5px 5px;
+    cursor: pointer;
+    font-size:small;
+}
+
+.reviewtoolDisableAnchor {
+    cursor: default !important;
+    opacity: 0.5 !important;
+    pointer-events: none !important;
+}
+
+.chosen-container .chosen-drop .chosen-results .active-result.result-selected
+, .chosen-container .chosen-results li.result-selected {
+    padding-right: 30px;
+}
+
+.chosen-container:not(.chosen-with-drop) .chosen-drop .chosen-search input[type=text] {
+    display: none;
+} 
+
+.ws-unset {
+    white-space: unset;
+}
+
+.extracted-document-container {
+min-height : 470px;
+}
+.ng-table-pager {
+    padding: 12px 25px 15px;
+    min-height: 60px !important;
+    margin-top: 10px !important;
+}
+#parent::-webkit-scrollbar {
+    width: 4px !important;
+    height: 4px !important;
+}
+
+#parent::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: gray;
+}
+
+#parent::-webkit-scrollbar-track {
+    border: 0px solid;
+    padding: 2px 0;
+}
+.right-corner-button-alignment {
+    position:relative;
+    width:50px !important;
+}

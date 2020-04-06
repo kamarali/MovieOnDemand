@@ -1,0 +1,233 @@
+﻿<form name="formRegister" ng-submit="lctrl.doRegister()" autocomplete="off" novalidate>
+    <div class="p-r-10">
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <!--FIRST NAME-->
+                <div class="input-group" ng-class="{ 'm-b-15' : !(formRegister.firstName.$invalid && !formRegister.firstName.$pristine) }">
+                    <span class="input-group-addon"><i class="zmdi zmdi-account-box"></i></span>
+                    <div class="fg-line fg-line-{{currentSkin}}">
+                        <input name="firstName" type="text" class="form-control"
+                               ng-maxlength="50"
+                               placeholder="First Name"
+                               ng-model="lctrl.registerData.firstName"
+                               required autofocus>
+                    </div>
+                    <small ng-show="formRegister.firstName.$invalid && !formRegister.firstName.$pristine" class="help-block">Enter valid first name (max 50 chars)</small>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <!--LAST NAME-->
+                <div class="input-group" ng-class="{ 'm-b-15' : !(formRegister.lastName.$invalid && !formRegister.lastName.$pristine) }">
+                    <span class="input-group-addon"><i class=""></i></span>
+                    <div class="fg-line fg-line-{{currentSkin}}">
+                        <input name="lastName" type="text" class="form-control"
+                               ng-maxlength="50"
+                               placeholder="Last Name"
+                               ng-model="lctrl.registerData.lastName"
+                               required autofocus>
+                    </div>
+                    <small ng-show="formRegister.lastName.$invalid && !formRegister.lastName.$pristine" class="help-block">Enter valid last name (max 50 chars)</small>
+                </div>
+            </div>
+
+        </div>
+
+        <!--UserName & Password For Repo Mode Only-->
+        <div ng-if="authAuthMode == 'REPO'">
+            <!--USER NAME-->
+            <div class="input-group" ng-class="{ 'm-b-15' : !(formRegister.userName.$invalid && !formRegister.userName.$pristine) }">
+                <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
+                <div class="fg-line fg-line-{{currentSkin}}">
+                    <input name="userName" type="email" class="form-control"
+                           ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+                           placeholder="User (email)"
+                           ng-model="lctrl.registerData.userName"
+                           required autofocus>
+                </div>
+                <small ng-show="formRegister.userName.$invalid && !formRegister.userName.$pristine" class="help-block c-red">Enter valid email</small>
+            </div>
+
+            <!--PASSWORD-->
+            <div class="input-group" ng-class="{ 'm-b-15' : !(formRegister.password.$invalid && !formRegister.password.$pristine) }">
+                <span class="input-group-addon"><i class="zmdi zmdi-eye-off"></i></span>
+                <div class="fg-line fg-line-{{currentSkin}}">
+                    <input name="password" type="password" class="form-control" autocomplete="off"
+                           ng-minlength="8"
+                           ng-maxlength="20"
+                           placeholder="Password"
+                           ng-model="lctrl.registerData.password"
+                           ng-pattern="/^[^&%]*$/"
+                           required>
+                </div>
+                <small ng-show="formRegister.password.$invalid && !formRegister.password.$pristine" class="help-block c-red">Enter valid password (8 to 20 chars, invalid characters are &,%)</small>
+            </div>
+
+            <!--CONFIRM PASSWORD-->
+            <div class="input-group" ng-class="{ 'm-b-15' : !(formRegister.confirmPassword.$invalid && !formRegister.confirmPassword.$pristine) }">
+                <span class="input-group-addon"><i class=""></i></span>
+                <div class="fg-line fg-line-{{currentSkin}}">
+                    <input name="confirmPassword" type="password" class="form-control" autocomplete="off"
+                           ng-minlength="8"
+                           ng-maxlength="20"
+                           placeholder="Reenter Password"
+                           ng-model="lctrl.registerData.confirmPassword"
+                           data-password-verify="lctrl.registerData.password"
+                           required>
+                </div>
+                <small ng-show="formRegister.confirmPassword.$error.passwordVerify" class="help-block c-red">Passwords not matching</small>
+
+            </div>
+        </div>
+
+        <!--Email Not applicable to REPO Mode -->
+        <div ng-if="authAuthMode != 'REPO'">
+            <!--USER EMAIL-->
+            <div class="input-group" ng-class="{ 'm-b-15' : !(formRegister.userEmail.$invalid && !formRegister.userEmail.$pristine) }">
+                <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
+                <div class="fg-line fg-line-{{currentSkin}}">
+                    <input name="userEmail" type="email" class="form-control"
+                           ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+                           placeholder="User (email)"
+                           ng-model="lctrl.registerData.userEmail"
+                           ng-readonly="authAuthMode == 'SAML_AZURE' && lctrl.showExternalRegister == 0"
+                           required autofocus>
+                </div>
+                <small ng-show="formRegister.userEmail.$invalid && !formRegister.userEmail.$pristine" class="help-block">Enter valid email</small>
+            </div>
+
+        </div>
+
+        <!--Original Code Below-->
+        <!--Phone & Country-->
+
+        <div class="row m-b-15">
+            <div class="col-md-6">
+
+                <!--BUSINESS PHONE-->
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="zmdi zmdi-phone"></i></span>
+                    <div class="fg-line">
+                        <input name="businessPhone" type="number" class="form-control" autocomplete="off"
+                               ng-maxlength="50"
+                               placeholder="Business Phone"
+                               ng-model="lctrl.registerData.businessPhone"
+                               required>
+                    </div>
+                    <small ng-show="formRegister.businessPhone.$invalid && !formRegister.businessPhone.$pristine" class="c-red">Enter phone number (max 50 chars)</small>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <!--COUNTRY-->
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="zmdi zmdi-globe"></i></span>
+                    <div class="fg-line fg-float">
+                        <select chosen
+                                data-placeholder="Select Country..."
+                                no-results-text="'none selected'"
+                                disable-search="true"
+                                class="w-100"
+                                ng-model="lctrl.registerData.country"
+                                ng-options="q.name as q.name for q in lctrl.countries  track by q.name">
+                            <option value="">Select Country</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Time/ Date-->
+        <div class="row m-b-15">
+            <div class="col-md-6">
+
+                <!--TIME ZONE-->
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="zmdi zmdi-time"></i></span>
+                    <div class="fg-toggled">
+                        <select chosen
+                                data-placeholder="Select Time Zone..."
+                                no-results-text="'none selected'"
+                                disable-search="true"
+                                class="w-100"
+                                ng-model="lctrl.registerData.timeZone"
+                                ng-options="q for q in lctrl.timezones | orderBy : q">
+                            <option value="">Select Time Zone</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <!--DATE FORMAT-->
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
+                    <div>
+                        <select chosen
+                                data-
+                                data-placeholder="Select Date Format..."
+                                no-results-text="'No date formats configured'"
+                                disable-search="true"
+                                class="w-100"
+                                ng-model="lctrl.registerData.dateFormat"
+                                ng-options="q for q in lctrl.dateformats | orderBy : q">
+                            <option value="">Select Date Format</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--Language-->
+
+        <div class="row m-b-15">
+            <div class="col-md-6">
+
+                <!--PRIMARY LANGUAGE-->
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="zmdi zmdi-keyboard"></i></span>
+                    <div class="fg-line">
+                        <select chosen
+                                data-placeholder="Select Primary Language..."
+                                no-results-text="'none selected'"
+                                disable-search="true"
+                                class="w-100"
+                                ng-model="lctrl.registerData.primaryLanguage"
+                                ng-options="lang.languageName as lang.languageName for lang in lctrl.primarylanguages">
+                            <option value="">Select Primary Language</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <!--SECONDARY LANGUAGE-->
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="zmdi zmdi-keyboard"></i></span>
+                    <div class="fg-toggled">
+                        <select chosen
+                                data-placeholder="Select Secondary Language..."
+                                no-results-text="'none selected'"
+                                disable-search="true"
+                                class="w-100"
+                                ng-model="lctrl.registerData.secondaryLanguage"
+                                ng-options="lang.languageName as lang.languageName for lang in lctrl.secondarylanguages">
+                            <option value="">Select Secondary Language</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="clearfix"></div>
+    <button class="btn bgm-{{ currentSkin == 'default' ? 'blue' : currentSkin }} btn-icon-text w-100"
+            type="submit"
+            ng-disabled="formRegister.$invalid || lctrl.registerData.secondaryLanguage === null || lctrl.registerData.primaryLanguage === null
+                            ||  lctrl.registerData.dateFormat === null || lctrl.registerData.timeZone === null || lctrl.model.country === null">
+        <i class="zmdi zmdi-arrow-forward"></i> Register
+    </button>
+</form>
